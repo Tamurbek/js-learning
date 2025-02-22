@@ -7,6 +7,7 @@
             display: flex;
             flex-direction: row;
             gap: 2rem;
+            justify-content: center;
         }
         .over {
             width: 900px;
@@ -15,6 +16,8 @@
             display: flex;
             flex-direction: row;
             gap: 1rem;
+            align-items: center;
+            justify-content: center;
         }
         img{
             width: 150px;
@@ -59,9 +62,14 @@
 
         function drop(ev) {
             ev.preventDefault();
-            console.log(ev.target);
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+            console.log(JSON.stringify(ev.target.id).includes('drag'));
+            if(!JSON.stringify(ev.target.id).includes('drag')){
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+            else{
+                console.error("Xatolik tafsilotlari:", error);
+            }
         }
 
     </script>
