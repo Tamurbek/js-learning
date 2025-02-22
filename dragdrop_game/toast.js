@@ -8,7 +8,6 @@ function showToast(message, type = "success") {
       <div class="toast-content">
         <i class="bi icon bi-${getIcon(type)}"></i>
         <div class="message">
-          <span class="text text-1">${capitalize(type)}</span>
           <span class="text text-2">${message}</span>
         </div>
       </div>

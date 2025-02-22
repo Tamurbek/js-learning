@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="toast.css">
     <style>
         body {
@@ -66,28 +67,32 @@
 
         function allowDrop(event) {
             event.preventDefault();
+            status=true;
         }
 
         function drag(event) {
-            console.log(event);
             event.dataTransfer.setData("text", event.target.id);
             let draggedElement = event.target;
-            event.target.classList.add("faded");
+            if(status){
+                event.target.classList.add("faded");
+            }
         }
 
         function drop(event) {
             event.preventDefault();
             let draggedId = event.dataTransfer.getData("text");
             let draggedElement = document.getElementById(draggedId);
-
+            
             if (draggedElement.name === event.target.name) {
                 statusDiv.textContent="Barakalla!";
                 event.target.classList.remove("faded");
-                status = true;
-                showToast("Barakka!", "success");
+                draggedElement.style.pointerEvents = "none";
+                showToast("Barakalla!", "success");
             } else {
+                draggedElement.classList.remove("faded");
                 event.target.classList.add("faded");
                 statusDiv.textContent="Qayta urinib ko'ring!";
+                draggedElement.style.pointerEvents = "none";
                 showToast("Qayta urinib ko`ring!", "error");
             }
         }
