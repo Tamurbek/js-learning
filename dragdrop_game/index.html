@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="toast.css">
     <style>
         body {
             display: flex;
@@ -35,6 +36,7 @@
 </head>
 
 <body>
+    <div class="toast-container"></div>
     <div class="container" id="target">
         <img id="fruit1" name="fruit1" class="faded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTknNj9ijKhB-xEaBB7RjV0VhwiDkmSrCveXw&s">
         <img id="fruit2" name="fruit2" class="faded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Oks8iwqjvlfjkLmiAkyGvgf1n0vRuHABWoWYjYApMYkAFsrmoDy77A0BTNhRTVTFdcQ&usqp=CAU">
@@ -46,37 +48,47 @@
         <img id="drag5" class="fruit" name="fruit2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Oks8iwqjvlfjkLmiAkyGvgf1n0vRuHABWoWYjYApMYkAFsrmoDy77A0BTNhRTVTFdcQ&usqp=CAU">
         <img id="drag6" class="fruit" name="fruit3" src="https://geografiya.uz/uploads/posts/2015-05/thumbs/1430644961_behi-2.jpg">
     </div>
-
+    
+    <div class="status"></div>
+    <script src="toast.js"></script>
     <script>
-         document.querySelectorAll(".fruit").forEach(img => {
+        let status = false;
+        let statusDiv=document.querySelector('.status')
+        
+        document.querySelectorAll(".fruit").forEach(img => {
             img.addEventListener("dragstart", drag);
         });
-        
+
         document.querySelectorAll(".faded").forEach(img => {
             img.addEventListener("dragover", allowDrop);
             img.addEventListener("drop", drop);
         });
-        
+
         function allowDrop(event) {
             event.preventDefault();
         }
 
         function drag(event) {
+            console.log(event);
             event.dataTransfer.setData("text", event.target.id);
             let draggedElement = event.target;
+            event.target.classList.add("faded");
         }
-        
+
         function drop(event) {
             event.preventDefault();
             let draggedId = event.dataTransfer.getData("text");
             let draggedElement = document.getElementById(draggedId);
-            
-            if (draggedElement.name===event.target.name) {
+
+            if (draggedElement.name === event.target.name) {
+                statusDiv.textContent="Barakalla!";
                 event.target.classList.remove("faded");
-                alert("Barakalla!");
+                status = true;
+                showToast("Barakka!", "success");
             } else {
-                alert("Qayta urinib ko'ring!");
                 event.target.classList.add("faded");
+                statusDiv.textContent="Qayta urinib ko'ring!";
+                showToast("Qayta urinib ko`ring!", "error");
             }
         }
     </script>
