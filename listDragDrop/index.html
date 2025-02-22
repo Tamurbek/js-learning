@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop List</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 200px;
+        }
+        li {
+            padding: 10px;
+            margin: 5px;
+            background-color: lightblue;
+            border: 1px solid blue;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="sortable-list">
+        <li draggable="true">Element 1</li>
+        <li draggable="true">Element 2</li>
+        <li draggable="true">Element 3</li>
+        <li draggable="true">Element 4</li>
+    </ul>
+
+    <script>
+        let draggedItem = null; // Sudrab kelinayotgan element
+
+        document.querySelectorAll("#sortable-list li").forEach((item) => {
+            item.addEventListener("dragstart", function (event) {
+                draggedItem = this;
+                event.dataTransfer.effectAllowed = "move";
+            });
+
+            item.addEventListener("dragover", function (event) {
+                event.preventDefault(); // Standart harakatlarni bloklash
+            });
+
+            item.addEventListener("drop", function (event) {
+                event.preventDefault();
+                if (draggedItem !== this) {
+                    let list = document.getElementById("sortable-list");
+                    let items = Array.from(list.children);
+                    let draggedIndex = items.indexOf(draggedItem);
+                    let targetIndex = items.indexOf(this);
+
+                    if (draggedIndex < targetIndex) {
+                        list.insertBefore(draggedItem, this.nextSibling);
+                    } else {
+                        list.insertBefore(draggedItem, this)
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
