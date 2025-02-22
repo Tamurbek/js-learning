@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        body{
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+        }
+        .over {
+            width: 900px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+        img{
+            width: 150px;
+            height: 150px;
+            border: 0.5px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="div1" class="over">
+
+    </div>
+    <div id="div2" class="over">
+        <img id="drag1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTknNj9ijKhB-xEaBB7RjV0VhwiDkmSrCveXw&s">
+        <img id="drag2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Oks8iwqjvlfjkLmiAkyGvgf1n0vRuHABWoWYjYApMYkAFsrmoDy77A0BTNhRTVTFdcQ&usqp=CAU">
+        <img id="drag3" src="https://geografiya.uz/uploads/posts/2015-05/thumbs/1430644961_behi-2.jpg">
+    </div>
+    <br>
+    <script>
+
+        document.querySelectorAll(".over").forEach(item => {
+            item.addEventListener("dragover", allowDrop);
+            item.addEventListener("drop", drop);
+        });
+
+        document.querySelectorAll("img").forEach(img => {
+            img.setAttribute("draggable", "true");
+            img.addEventListener("dragstart", drag);
+        });
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            console.log(ev.target.id);
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            console.log(ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            console.log(ev.target);
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+    </script>
+
+</body>
+
+</html>
