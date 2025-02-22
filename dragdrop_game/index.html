@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .over {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid gray;
+        }
+
+        .faded {
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="target">
+        <img id="fruit1" name="fruit1" class="faded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTknNj9ijKhB-xEaBB7RjV0VhwiDkmSrCveXw&s">
+        <img id="fruit2" name="fruit2" class="faded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Oks8iwqjvlfjkLmiAkyGvgf1n0vRuHABWoWYjYApMYkAFsrmoDy77A0BTNhRTVTFdcQ&usqp=CAU">
+        <img id="fruit3" name="fruit3" class="faded" src="https://geografiya.uz/uploads/posts/2015-05/thumbs/1430644961_behi-2.jpg">
+    </div>
+
+    <div class="container" id="source">
+        <img id="drag4" class="fruit" name="fruit1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTknNj9ijKhB-xEaBB7RjV0VhwiDkmSrCveXw&s">
+        <img id="drag5" class="fruit" name="fruit2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Oks8iwqjvlfjkLmiAkyGvgf1n0vRuHABWoWYjYApMYkAFsrmoDy77A0BTNhRTVTFdcQ&usqp=CAU">
+        <img id="drag6" class="fruit" name="fruit3" src="https://geografiya.uz/uploads/posts/2015-05/thumbs/1430644961_behi-2.jpg">
+    </div>
+
+    <script>
+         document.querySelectorAll(".fruit").forEach(img => {
+            img.addEventListener("dragstart", drag);
+        });
+        
+        document.querySelectorAll(".faded").forEach(img => {
+            img.addEventListener("dragover", allowDrop);
+            img.addEventListener("drop", drop);
+        });
+        
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            let draggedElement = event.target;
+        }
+        
+        function drop(event) {
+            event.preventDefault();
+            let draggedId = event.dataTransfer.getData("text");
+            let draggedElement = document.getElementById(draggedId);
+            
+            if (draggedElement.name===event.target.name) {
+                event.target.classList.remove("faded");
+                alert("Barakalla!");
+            } else {
+                alert("Qayta urinib ko'ring!");
+                event.target.classList.add("faded");
+            }
+        }
+    </script>
+</body>
+
+</html>
