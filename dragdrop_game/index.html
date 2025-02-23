@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="bootstrap-icons.min.css">
     <link rel="stylesheet" href="toast.css">
     <style>
         body {
@@ -73,26 +73,27 @@
         function drag(event) {
             event.dataTransfer.setData("text", event.target.id);
             let draggedElement = event.target;
-            if(status){
-                event.target.classList.add("faded");
-            }
         }
-
+        
         function drop(event) {
             event.preventDefault();
             let draggedId = event.dataTransfer.getData("text");
             let draggedElement = document.getElementById(draggedId);
             
             if (draggedElement.name === event.target.name) {
-                statusDiv.textContent="Barakalla!";
+
                 event.target.classList.remove("faded");
+                event.target.style.pointerEvents = "none";
+
                 draggedElement.style.pointerEvents = "none";
+                draggedElement.classList.add("faded");
                 showToast("Barakalla!", "success");
             } else {
                 draggedElement.classList.remove("faded");
-                event.target.classList.add("faded");
-                statusDiv.textContent="Qayta urinib ko'ring!";
                 draggedElement.style.pointerEvents = "none";
+
+                event.target.classList.add("faded");
+            
                 showToast("Qayta urinib ko`ring!", "error");
             }
         }
