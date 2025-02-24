@@ -1,0 +1,33 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    /* background-color: #688cac; */
+    background: linear-gradient(45deg, #393a3b 0%, #585858 40%);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    gap: 1rem;
+}
+
+.over {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+.faded {
+    opacity: 0.2;
+}

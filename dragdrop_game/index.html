@@ -1,39 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
-    <link rel="stylesheet" href="bootstrap-icons.min.css">
-    <link rel="stylesheet" href="toast.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .container {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .over {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        img {
-            width: 150px;
-            height: 150px;
-            border: 1px solid gray;
-        }
-
-        .faded {
-            opacity: 0.2;
-        }
-    </style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -51,53 +19,7 @@
     </div>
     
     <div class="status"></div>
-    <script src="toast.js"></script>
-    <script>
-        let status = false;
-        let statusDiv=document.querySelector('.status')
-        
-        document.querySelectorAll(".fruit").forEach(img => {
-            img.addEventListener("dragstart", drag);
-        });
-
-        document.querySelectorAll(".faded").forEach(img => {
-            img.addEventListener("dragover", allowDrop);
-            img.addEventListener("drop", drop);
-        });
-
-        function allowDrop(event) {
-            event.preventDefault();
-            status=true;
-        }
-
-        function drag(event) {
-            event.dataTransfer.setData("text", event.target.id);
-            let draggedElement = event.target;
-        }
-        
-        function drop(event) {
-            event.preventDefault();
-            let draggedId = event.dataTransfer.getData("text");
-            let draggedElement = document.getElementById(draggedId);
-            
-            if (draggedElement.name === event.target.name) {
-
-                event.target.classList.remove("faded");
-                event.target.style.pointerEvents = "none";
-
-                draggedElement.style.pointerEvents = "none";
-                draggedElement.classList.add("faded");
-                showToast("Barakalla!", "success");
-            } else {
-                draggedElement.classList.remove("faded");
-                draggedElement.style.pointerEvents = "none";
-
-                event.target.classList.add("faded");
-            
-                showToast("Qayta urinib ko`ring!", "error");
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
